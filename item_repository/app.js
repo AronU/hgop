@@ -13,6 +13,7 @@ app.get('/items', (req, res) => {
     database.getItems(function(items) {
         // TODO: order items alphabetically
         var names = items.map(x => x.name);
+        names.sort();
         res.statusCode = 200;
         res.send(names);
     });
