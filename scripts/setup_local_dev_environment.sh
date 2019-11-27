@@ -26,11 +26,12 @@ else
 echo "*git" | tee -a "$log"
 echo "*NodeJS" | tee -a "$log"
 echo "*AWS" | tee -a "$log"
+#Installations
 sudo apt update | tee -a "$log"
 sudo apt-get install git -y | tee -a "$log"
 sudo apt-get install nodejs -y | tee -a "$log"
 sudo apt install awscli -y | tee -a "$log"
-
+#Version checks.
 git --version | tee -a "$log"
 nodejs -v | tee -a "$log"
 node -v | tee -a "$log"
