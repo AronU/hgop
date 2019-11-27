@@ -1,5 +1,5 @@
 log=log_file.txt #File to log all output in.
-echo "Welcome $USER. Operating system: $OSTYPE. Time of start: $(date +"%A, %d-%m-%y")" | tee -a "$log"
+echo "Welcome $USER. Operating system: $OSTYPE. Time of start: $(date +"%A, %d-%m-%y %H:%M:%S")" | tee -a "$log"
 echo "This script installs and prints the versions for the following tools:" | tee -a "$log"
 echo "" | tee -a "$log"
 
@@ -37,4 +37,4 @@ node -v | tee -a "$log"
 aws --version | tee -a "$log"
 fi
 echo "" | tee -a "$log"
-echo "Time of end: $(date +"%A, %d-%m-%y")" | tee -a "$log" #Print when script finishes
+echo "Time of end: $(date +"%A, %d-%m-%y %H:%M:%S")" | tee -a "$log" #Print when script finishes
