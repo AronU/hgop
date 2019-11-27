@@ -1,10 +1,10 @@
-# TODO Comment 2-3 sentences.
+# Retrieves the credentials from specified location. Our provdier is AWS. 
 provider "aws" {
   shared_credentials_file = "~/.aws/credentials"
   region                  = "us-east-1"
 }
 
-# TODO Comment 2-3 sentences.
+# Sets up ports. Sets up security groups and protocols. 
 resource "aws_security_group" "game_security_group" {
   name = "GameSecurityGroup"
 
@@ -30,7 +30,8 @@ resource "aws_security_group" "game_security_group" {
   }
 }
 
-# TODO Comment 2-3 sentences.
+# instance_type is what kind of instance we use at AWS. t2.micro is the free version. Security
+# key is "GameKeyPair".
 resource "aws_instance" "game_server" {
   ami                    = "ami-0ac019f4fcb7cb7e6"
   instance_type          = "t2.micro"
@@ -40,7 +41,8 @@ resource "aws_instance" "game_server" {
     Name = "GameServer"
   }
 
-  # TODO Comment 1-2 sentences.
+  # initialize_game_api_instance.sh script installs everything required, like Docker and Docker-
+  # Compose. It sends it to the new AWS instance.
   provisioner "file" {
     source      = "scripts/initialize_game_api_instance.sh"
     destination = "/home/ubuntu/initialize_game_api_instance.sh"
@@ -53,7 +55,7 @@ resource "aws_instance" "game_server" {
     }
   }
 
-  # TODO Comment 1-2 sentences.
+  # Sends the Docker-compose.yml file to the new AWS instance so it can be accessed later.
   provisioner "file" {
     source      = "docker-compose.yml"
     destination = "/home/ubuntu/docker-compose.yml"
@@ -71,7 +73,8 @@ resource "aws_instance" "game_server" {
   # Since it can take time for the SSH agent on machine to start up we let Terraform
   # handle the retry logic, it will try to connect to the agent until it is available
   # that way we know the instance is available through SSH after Terraform finishes.
-  # TODO Comment 1-2 sentences.
+
+  # Changes privilege of initialize_game_api_instance.sh script. Makes it excecutable.
   provisioner "remote-exec" {
     inline = [
       "chmod +x /home/ubuntu/initialize_game_api_instance.sh",
@@ -86,7 +89,7 @@ resource "aws_instance" "game_server" {
   }
 }
 
-# TODO Comment 1-2 sentences.
+# Gets the public IP and saves it as a new instance. Displays it in terminal as well.
 output "public_ip" {
   value = aws_instance.game_server.public_ip
 }
