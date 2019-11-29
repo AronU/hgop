@@ -10,11 +10,24 @@ echo "*brew" | tee -a "$log"
 echo "*git" | tee -a "$log"
 echo "*NodeJS" | tee -a "$log"
 echo "*AWS" | tee -a "$log"
-#Installations, brew first, then we use brew to install rest. 
-/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" | tee -a "$log";
+# the following IF statmants check if the program is if it is not then it installs it
+# Installations, brew first, then we use brew to install rest. 
+if test ! $(which brew);
+then
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" | tee -a "$log"
+fi
+if test ! $(which git);
+then
 brew install git | tee -a "$log"
-brew install nodejs | tee -a "$log"
+fi
+if test ! $(which node);
+then
+brew install node | tee -a "$log"
+fi
+if test ! $(which aws);
+then
 brew install awscli -y | tee -a "$log"
+fi
 #Version checks.
 git --version | tee -a "$log"
 nodejs -v | tee -a "$log"
