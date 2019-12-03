@@ -72,7 +72,8 @@ module.exports = (deck, dealer) => {
         },
         // Player action (void).
         guessOver21: (game) => {
-            // TODO
+            let new_card = game.state.dealer.draw(game.state.deck);
+            game.state.card.push(new_card);
         },
     };
 };
