@@ -1,4 +1,6 @@
 **.tfstate
 **/.terraform
 **.tfstate.backup
-**/.node_modules
+**/node_modules
+**/coverage
+**package-lock.json

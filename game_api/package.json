@@ -1,15 +1,19 @@
 {
-    "name": "FILL_IN_WITH_A_NAME_OF_YOUR_CHOICE",
-    "version": "1.0.0",
-    "description": "",
-    "main": "app.js",
-    "scripts": {
-      "test": "echo \"Error: no test specified\" && exit 1"
-    },
-    "author": "FILL_IN_WITH_YOUR_NAME",
-    "license": "ISC",
-    "dependencies": {
-      "express": "4.17.1",
-      "pg": "7.12.1"
-    }
+  "name": "FILL_IN_WITH_A_NAME_OF_YOUR_CHOICE",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "unit": "jest --testRegex .unit-test.js --collectCoverage true",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "FILL_IN_WITH_YOUR_NAME",
+  "license": "ISC",
+  "dependencies": {
+    "express": "4.17.1",
+    "pg": "7.12.1"
+  },
+  "devDependencies": {
+    "jest": "^24.9.0"
   }
+}
