@@ -19,22 +19,24 @@ module.exports = (deck, dealer) => {
             if (game.getTotal <= 21 && guess == 'over') {
                 return true
             }
-            else if (game.getTotal > 21 && guess == 'undre') {
+            else if (game.getTotal > 21 && guess == 'under') {
                 return true
             }
-            else
-            return false
+            else {
+                return false
+            }
         },
         // Has the player won (true or false).
         playerWon: (game, guess) => {
             if (game.getTotal > 21 && guess == 'over') {
                 return true
             }
-            else if (game.getTotal == 21 && guess == 'undre') {
+            else if (game.getTotal == 21 && guess == 'under') {
                 return true
             }
-            else
-            return false
+            else {
+                return false
+            }
         },
         // The highest score the cards can yield without going over 21 (integer).
         getCardsValue: (game) => {
@@ -57,15 +59,16 @@ module.exports = (deck, dealer) => {
         },
         // The player's cards (array of strings).
         getCards: (game) => {
-            // TODO
+            return game.state.cards;
         },
         // The player's card (string or undefined).
         getCard: (game) => {
-            return game.card;
+            return game.state.card;
         },
         // Player action (void).
         guess21OrUnder: (game) => {
-            // TODO
+            let new_card = game.state.dealer.draw(game.state.deck);
+            game.state.cards.push(new_card);
         },
         // Player action (void).
         guessOver21: (game) => {
