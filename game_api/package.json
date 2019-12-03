@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "unit": "jest --testRegex .unit-test.js --collectCoverage true",
+    "test:unit": "jest --testRegex .unit-test.js --collectCoverage true",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "FILL_IN_WITH_YOUR_NAME",
