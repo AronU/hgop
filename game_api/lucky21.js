@@ -40,11 +40,22 @@ module.exports = (deck, dealer) => {
         },
         // The highest score the cards can yield without going over 21 (integer).
         getCardsValue: (game) => {
-            // TODO
+            if (game.state.card == undefined) {
+                return game.getCardValue(game);
+            } else {
+                let overallTotal = game.getCardValue(game);
+                let CardsValue = overallTotal - game.getCardValue;
+                return CardsValue;
+            }
         },
         // The value of the card that should exceed 21 if it exists (integer or undefined).
         getCardValue: (game) => {
-            // TODO
+            if (game.state.card != undefined) {
+                card_value = parseInt(game.state.card.slice(0, -1));
+            } else {
+                card_value = game.state.card;
+            }
+            return card_value;
         },
         getTotal: (game) => {
             var Total = 0;
@@ -69,10 +80,12 @@ module.exports = (deck, dealer) => {
         guess21OrUnder: (game) => {
             let new_card = game.state.dealer.draw(game.state.deck);
             game.state.cards.push(new_card);
+            
         },
         // Player action (void).
         guessOver21: (game) => {
-            // TODO
+            let last_card = game.state.dealer.draw(game.state.deck);
+            game.state.card = last_card;
         },
     };
 };

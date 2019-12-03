@@ -312,10 +312,13 @@ test('getCard should equal undefined when no card is drawn.', () => {
   let game = lucky21Constructor(deck, dealer);
   
   // Act
-  let return_value = game.getCardValue(game);
+  let return_value = game.getCard(game);
   
   // Assert
   expect(game.state.cards.length).toEqual(2);
   expect(return_value).toEqual(undefined);
 });
+
+//GUESS21ORUNDER TESTS.
+
 
