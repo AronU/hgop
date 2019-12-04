@@ -16,27 +16,33 @@ module.exports = (deck, dealer) => {
         state: state,
         // Is the game over (true or false).
         isGameOver: (game, guess) => {
-            if (game.getTotal <= 21 && guess == 'over') {
-                return true
-            }
-            else if (game.getTotal > 21 && guess == 'under') {
-                return true
+            if(game.state.card != undefined) {
+                // Player has guessed over 21:
+                return true;
             }
             else {
-                return false
+                // Player has guessed 21 or under:
+                if(game.getTotal(game) >= 21) {
+                    return true;
+                }
             }
+            return false;
         },
         // Has the player won (true or false).
         playerWon: (game, guess) => {
-            if (game.getTotal > 21 && guess == 'over') {
-                return true
-            }
-            else if (game.getTotal == 21 && guess == 'under') {
-                return true
+            if(game.state.card != undefined) {
+                // Player has guessed over 21:
+                if(game.getTotal(game) > 21) {
+                    return true;
+                }
             }
             else {
-                return false
+                // Player has guessed 21 or under:
+                if(game.getTotal(game) == 21) {
+                    return true;
+                }
             }
+            return false;
         },
         // The highest score the cards can yield without going over 21 (integer).
         getCardsValue: (game) => {
@@ -78,14 +84,11 @@ module.exports = (deck, dealer) => {
         },
         // Player action (void).
         guess21OrUnder: (game) => {
-            let new_card = game.state.dealer.draw(game.state.deck);
-            game.state.cards.push(new_card);
-            
+            game.state.cards.push(game.state.dealer.draw(game.state.deck));
         },
         // Player action (void).
         guessOver21: (game) => {
-            let last_card = game.state.dealer.draw(game.state.deck);
-            game.state.card = last_card;
+            game.state.card = game.state.dealer.draw(game.state.deck);
         },
     };
 };
