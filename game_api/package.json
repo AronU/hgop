@@ -15,6 +15,9 @@
     "pg": "7.12.1"
   },
   "devDependencies": {
+    "eslint": "^6.7.2",
+    "eslint-config-google": "^0.14.0",
+    "eslint-plugin-react": "^7.17.0",
     "jest": "^24.9.0"
   }
 }
