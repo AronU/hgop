@@ -8,7 +8,7 @@ node {
         echo 'Setup'
     }
     stage("Lint"){
-        sh "npm install eslint --save-dev"
+        echo 'Lint'
     }
     stage("Test"){
         echo 'Test'
