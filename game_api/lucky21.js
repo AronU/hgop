@@ -16,13 +16,13 @@ module.exports = (deck, dealer) => {
         state: state,
         // Is the game over (true or false).
         isGameOver: (game, guess) => {
-            if(game.state.card != undefined) {
+            if (game.state.card != undefined) {
                 // Player has guessed over 21:
                 return true;
             }
             else {
                 // Player has guessed 21 or under:
-                if(game.getTotal(game) >= 21) {
+                if (game.getTotal(game) >= 21) {
                     return true;
                 }
             }
@@ -30,15 +30,15 @@ module.exports = (deck, dealer) => {
         },
         // Has the player won (true or false).
         playerWon: (game, guess) => {
-            if(game.state.card != undefined) {
+            if (game.state.card != undefined) {
                 // Player has guessed over 21:
-                if(game.getTotal(game) > 21) {
+                if (game.getTotal(game) > 21) {
                     return true;
                 }
             }
             else {
                 // Player has guessed 21 or under:
-                if(game.getTotal(game) == 21) {
+                if (game.getTotal(game) == 21) {
                     return true;
                 }
             }

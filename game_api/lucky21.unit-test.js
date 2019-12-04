@@ -378,6 +378,28 @@ test('getCards should equal first 3 cards in deck after 1 draw.', () => {
   expect(return_value).toEqual(['04H', '09S', '02D']);
 });
 
+test('getCards should equal 21 with a 01D', () => {
+    // Arrange
+    let deck = deckConstructor();
+    deck = [
+        '04C', '01D', '05S', '05H', 
+    ];
+    let dealer = dealerConstructor();
+    // Override the shuffle to do nothing.
+    dealer.shuffle = (deck) => {};
+    
+    // Inject our dependencies
+    let game = lucky21Constructor(deck, dealer);
+    
+    // Act
+    game.guess21OrUnder(game);
+    let return_value = game.getCards(game);
+    
+    // Assert
+    expect(game.state.cards.length).toEqual(3);
+    expect(return_value).toEqual(['01H', '05S', '05D']);
+  });
+
 //GETCARD TESTS.
 test('getCard should equal undefined when no card is drawn.', () => {
   // Arrange
