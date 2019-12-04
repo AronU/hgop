@@ -87,7 +87,6 @@ test('isGameOver should be true for guessOver21 if getCardValue < 21', () => {
   
   // Assert
   expect(game.state.cards.length).toEqual(2);
-  expect(game.state.card.length).toEqual(1);
   expect(return_value).toEqual(true);
 });
 
