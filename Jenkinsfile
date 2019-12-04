@@ -5,7 +5,7 @@ node {
         sh "git status"
     }
     stage("Setup"){
-        sh "npm packages"
+        echo 'Setup'
     }
     stage("Lint"){
         sh "npm install eslint --save-dev"
