@@ -86,7 +86,7 @@ test('isGameOver should be true for guessOver21 if getCardValue < 21', () => {
   let return_value = game.isGameOver(game);
   
   // Assert
-  expect(game.state.cards.length).toEqual(2);
+  expect(game.state.cards.length).toEqual(3);
   expect(return_value).toEqual(true);
 });
 
@@ -108,7 +108,7 @@ test('isGameOver should be true for guessOver21 if getCardValue == 21', () => {
   let return_value = game.isGameOver(game);
   
   // Assert
-  expect(game.state.cards.length).toEqual(2);
+  expect(game.state.cards.length).toEqual(3);
   expect(return_value).toEqual(true);
 });
 
@@ -149,29 +149,7 @@ test('playerWon should be a win for guessOver21 if getCardValue > 21', () => {
   let game = lucky21Constructor(deck, dealer);
   
   // Act
-  game.guess21OrUnder(game);
-  let return_value = game.playerWon(game);
-  
-  // Assert
-  expect(game.state.cards.length).toEqual(3);
-  expect(return_value).toEqual(true);
-});
-
-test('playerWon should be a win for guessOver21 if getCardValue > 21', () => {
-  // Arrange
-  let deck = deckConstructor();
-  deck = [
-      '10C', '09D', '04S', '10H', 
-  ];
-  let dealer = dealerConstructor();
-  // Override the shuffle to do nothing.
-  dealer.shuffle = (deck) => {};
-  
-  // Inject our dependencies
-  let game = lucky21Constructor(deck, dealer);
-  
-  // Act
-  game.guess21OrUnder(game);
+  game.guessOver21(game);
   let return_value = game.playerWon(game);
   
   // Assert
