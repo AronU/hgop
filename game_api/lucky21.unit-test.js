@@ -68,7 +68,7 @@ test('isGameOver should be true for guess21OrUnder if getCardValue > 21', () => 
   expect(return_value).toEqual(true);
 });
 
-test('isGameOver should be true for guess21OrOver if getCardValue < 21', () => {
+test('isGameOver should be true for guessOver21 if getCardValue < 21', () => {
   // Arrange
   let deck = deckConstructor();
   deck = [
@@ -82,15 +82,16 @@ test('isGameOver should be true for guess21OrOver if getCardValue < 21', () => {
   let game = lucky21Constructor(deck, dealer);
   
   // Act
-  game.guess21OrOver(game);
+  game.guessOver21(game);
   let return_value = game.isGameOver(game);
   
   // Assert
-  expect(game.state.cards.length).toEqual(3);
+  expect(game.state.cards.length).toEqual(2);
+  expect(game.state.card.length).toEqual(1);
   expect(return_value).toEqual(true);
 });
 
-test('isGameOver should be true for guess21OrOver if getCardValue == 21', () => {
+test('isGameOver should be true for guessOver21 if getCardValue == 21', () => {
   // Arrange
   let deck = deckConstructor();
   deck = [
@@ -104,11 +105,11 @@ test('isGameOver should be true for guess21OrOver if getCardValue == 21', () => 
   let game = lucky21Constructor(deck, dealer);
   
   // Act
-  game.guess21OrOver(game);
+  game.guessOver21(game);
   let return_value = game.isGameOver(game);
   
   // Assert
-  expect(game.state.cards.length).toEqual(3);
+  expect(game.state.cards.length).toEqual(2);
   expect(return_value).toEqual(true);
 });
 
@@ -135,7 +136,7 @@ test('playerWon should be a win for guess21OrUnder if getCardValue == 21', () =>
   expect(return_value).toEqual(true);
 });
 
-test('playerWon should be a win for guess21OrOver if getCardValue > 21', () => {
+test('playerWon should be a win for guessOver21 if getCardValue > 21', () => {
   // Arrange
   let deck = deckConstructor();
   deck = [
@@ -157,7 +158,7 @@ test('playerWon should be a win for guess21OrOver if getCardValue > 21', () => {
   expect(return_value).toEqual(true);
 });
 
-test('playerWon should be a win for guess21OrOver if getCardValue > 21', () => {
+test('playerWon should be a win for guessOver21 if getCardValue > 21', () => {
   // Arrange
   let deck = deckConstructor();
   deck = [
