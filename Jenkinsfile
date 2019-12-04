@@ -9,10 +9,9 @@ node {
     }
     stage("Lint"){
         sh "npm install eslint --save-dev"
-        sh ""
     }
     stage("Test"){
-        
+        echo 'Test'
     }
     def git = checkout scm
     stage("Build") {
@@ -20,6 +19,6 @@ node {
         sh "./scripts/docker_push.sh ${git.GIT_COMMIT}"
     }
     stage("Deploy"){
-        
+        echo 'Deploy'
     }
 }
