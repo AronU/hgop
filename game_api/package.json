@@ -1,13 +1,14 @@
 {
-  "name": "FILL_IN_WITH_A_NAME_OF_YOUR_CHOICE",
+  "name": "hogp-Luky21",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
   "scripts": {
     "test:unit": "jest --testRegex .unit-test.js --collectCoverage true",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "eslint": "eslint *.js"
   },
-  "author": "FILL_IN_WITH_YOUR_NAME",
+  "author": "Andri & Aron",
   "license": "ISC",
   "dependencies": {
     "express": "4.17.1",
