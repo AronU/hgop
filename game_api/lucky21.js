@@ -49,8 +49,8 @@ module.exports = (deck, dealer) => {
             if (game.state.card == undefined) {
                 return game.getTotal(game);
             } else {
-                let overallTotal = game.getCardValue(game);
-                let CardsValue = overallTotal - game.getCardValue;
+                let overallTotal = game.getTotal(game);
+                let CardsValue = overallTotal - game.getCardValue(game);
                 return CardsValue;
             }
         },
@@ -58,6 +58,9 @@ module.exports = (deck, dealer) => {
         getCardValue: (game) => {
             if (game.state.card != undefined) {
                 card_value = parseInt(game.state.card.slice(0, -1));
+                if (card_value > 10) {
+                    card_value = 10;
+                }
             } else {
                 card_value = game.state.card;
             }

@@ -112,6 +112,27 @@ test('isGameOver should be true for guessOver21 if getCardValue == 21', () => {
   expect(return_value).toEqual(true);
 });
 
+test('isGameOver should be false when game just started.', () => {
+  // Arrange
+  let deck = deckConstructor();
+  deck = [
+      '10C', '08D', '03S', '10H', 
+  ];
+  let dealer = dealerConstructor();
+  // Override the shuffle to do nothing.
+  dealer.shuffle = (deck) => {};
+  
+  // Inject our dependencies
+  let game = lucky21Constructor(deck, dealer);
+  
+  // Act
+  let return_value = game.isGameOver(game);
+  
+  // Assert
+  expect(game.state.cards.length).toEqual(2);
+  expect(return_value).toEqual(false);
+});
+
 //PLAYERWON TESTS.
 test('playerWon should be a win for guess21OrUnder if getCardValue == 21', () => {
   // Arrange
@@ -157,6 +178,28 @@ test('playerWon should be a win for guessOver21 if getCardValue > 21', () => {
   expect(return_value).toEqual(true);
 });
 
+test('playerWon should be a loss when guessOver21 but isnt', () => {
+  // Arrange
+  let deck = deckConstructor();
+  deck = [
+      '10C', '02D', '02S', '02H', 
+  ];
+  let dealer = dealerConstructor();
+  // Override the shuffle to do nothing.
+  dealer.shuffle = (deck) => {};
+  
+  // Inject our dependencies
+  let game = lucky21Constructor(deck, dealer);
+  
+  // Act
+  game.guessOver21(game);
+  let return_value = game.playerWon(game);
+  
+  // Assert
+  expect(game.state.cards.length).toEqual(3);
+  expect(return_value).toEqual(false);
+});
+
 //GETCARDSVALUE TESTS.
 
 test('getCardsValue should equal 19 after 4 draws.', () => {
@@ -183,6 +226,30 @@ test('getCardsValue should equal 19 after 4 draws.', () => {
   expect(return_value).toEqual(19);
 });
 
+test('getCardsValue should equal 20 after 2 draws.', () => {
+  // Arrange
+  let deck = deckConstructor();
+  deck = [
+      '11C', '09D', '09S', '02H', 
+  ];
+  let dealer = dealerConstructor();
+  // Override the shuffle to do nothing.
+  dealer.shuffle = (deck) => {};
+  
+  // Inject our dependencies
+  let game = lucky21Constructor(deck, dealer);
+  
+  // Act
+  game.guess21OrUnder(game);
+  game.guessOver21(game);
+
+  let return_value = game.getCardsValue(game);
+  
+  // Assert
+  expect(game.state.cards.length).toEqual(4);
+  expect(return_value).toEqual(20);
+});
+
 //GETCARDVALUE TESTS.
 test('getCardValue should equal undefined when no card is drawn.', () => {
   // Arrange
@@ -203,6 +270,42 @@ test('getCardValue should equal undefined when no card is drawn.', () => {
   // Assert
   expect(game.state.cards.length).toEqual(2);
   expect(return_value).toEqual(undefined);
+});
+
+test('getCardValue should equal 10 when card is a king.', () => {
+  // Arrange
+  let deck = deckConstructor();
+  let dealer = dealerConstructor();
+  // Override the shuffle to do nothing.
+  dealer.shuffle = (deck) => {};
+  
+  // Inject our dependencies
+  let game = lucky21Constructor(deck, dealer);
+  
+  // Act
+  game.state.card = '13D';
+  let return_value = game.getCardValue(game);
+  
+  // Assert
+  expect(return_value).toEqual(10);
+});
+
+test('getCardValue should equal 4 when card is a 4D.', () => {
+  // Arrange
+  let deck = deckConstructor();
+  let dealer = dealerConstructor();
+  // Override the shuffle to do nothing.
+  dealer.shuffle = (deck) => {};
+  
+  // Inject our dependencies
+  let game = lucky21Constructor(deck, dealer);
+  
+  // Act
+  game.state.card = '04D';
+  let return_value = game.getCardValue(game);
+  
+  // Assert
+  expect(return_value).toEqual(4);
 });
 
 //GETOTAL TESTS.
