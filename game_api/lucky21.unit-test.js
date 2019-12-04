@@ -250,6 +250,49 @@ test('getCardsValue should equal 20 after 2 draws.', () => {
   expect(return_value).toEqual(20);
 });
 
+test('getCardsValue should equal 14 after 2 draws with one royal card type.', () => {
+  // Arrange
+  let deck = deckConstructor();
+  deck = [
+      '11C', '09D', '04S', '13H', 
+  ];
+  let dealer = dealerConstructor();
+  // Override the shuffle to do nothing.
+  dealer.shuffle = (deck) => {};
+  
+  // Inject our dependencies
+  let game = lucky21Constructor(deck, dealer);
+  
+  // Act
+  let return_value = game.getCardsValue(game);
+  
+  // Assert
+  expect(game.state.cards.length).toEqual(2);
+  expect(return_value).toEqual(14);
+});
+
+test('getCardsValue should equal 17 after 1 draw. Ace should just be == 1.', () => {
+  // Arrange
+  let deck = deckConstructor();
+  deck = [
+      '11C', '01D', '04S', '13H', 
+  ];
+  let dealer = dealerConstructor();
+  // Override the shuffle to do nothing.
+  dealer.shuffle = (deck) => {};
+  
+  // Inject our dependencies
+  let game = lucky21Constructor(deck, dealer);
+  
+  // Act
+  game.guess21OrUnder(game);
+  let return_value = game.getCardsValue(game);
+  
+  // Assert
+  expect(game.state.cards.length).toEqual(3);
+  expect(return_value).toEqual(15);
+});
+
 //GETCARDVALUE TESTS.
 test('getCardValue should equal undefined when no card is drawn.', () => {
   // Arrange
@@ -288,6 +331,24 @@ test('getCardValue should equal 10 when card is a king.', () => {
   
   // Assert
   expect(return_value).toEqual(10);
+});
+
+test('getCardValue should equal 11 when card is an Ace.', () => {
+  // Arrange
+  let deck = deckConstructor();
+  let dealer = dealerConstructor();
+  // Override the shuffle to do nothing.
+  dealer.shuffle = (deck) => {};
+  
+  // Inject our dependencies
+  let game = lucky21Constructor(deck, dealer);
+  
+  // Act
+  game.state.card = '01D';
+  let return_value = game.getCardValue(game);
+  
+  // Assert
+  expect(return_value).toEqual(11);
 });
 
 test('getCardValue should equal 4 when card is a 4D.', () => {
@@ -393,11 +454,11 @@ test('getCards should equal 21 with a 01D', () => {
     
     // Act
     game.guess21OrUnder(game);
-    let return_value = game.getCards(game);
+    let return_value = game.getCardsValue(game);
     
     // Assert
     expect(game.state.cards.length).toEqual(3);
-    expect(return_value).toEqual(['01H', '05S', '05D']);
+    expect(return_value).toEqual(21);
   });
 
 //GETCARD TESTS.
@@ -421,7 +482,4 @@ test('getCard should equal undefined when no card is drawn.', () => {
   expect(game.state.cards.length).toEqual(2);
   expect(return_value).toEqual(undefined);
 });
-
-//GUESS21ORUNDER TESTS.
-
 

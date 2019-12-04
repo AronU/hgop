@@ -47,7 +47,27 @@ module.exports = (deck, dealer) => {
         // The highest score the cards can yield without going over 21 (integer).
         getCardsValue: (game) => {
             if (game.state.card == undefined) {
-                return game.getTotal(game);
+                let total = 0;
+                let amtOfAces = 0;
+                for (let index = 0; index < game.state.cards.length; index++) {
+                    var card_value = parseInt(game.state.cards[index].slice(0, -1));
+                    if (card_value == 1) {
+                        amtOfAces++;
+                    } else if (card_value > 10) {
+                        total = total + 10;
+                    } else {
+                        total = total + card_value;
+                    }
+                }
+                if (amtOfAces > 0) {
+                    let potentialTotal = total + 11 + amtOfAces - 1;
+                    if (potentialTotal <= 21) {
+                        total = potentialTotal;
+                    } else {
+                        total = total + amtOfAces;
+                    }
+                }               
+                return total;
             } else {
                 let overallTotal = game.getTotal(game);
                 let CardsValue = overallTotal - game.getCardValue(game);
@@ -60,6 +80,8 @@ module.exports = (deck, dealer) => {
                 card_value = parseInt(game.state.card.slice(0, -1));
                 if (card_value > 10) {
                     card_value = 10;
+                } else if (card_value == 1) {//If we have an Ace we want it to be 11. 
+                    card_value = 11;
                 }
             } else {
                 card_value = game.state.card;
