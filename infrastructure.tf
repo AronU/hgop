@@ -87,19 +87,6 @@ resource "aws_instance" "game_server" {
       private_key = file("~/.aws/GameKeyPair.pem")
     }
   }
-}
-
-# instance_type is what kind of instance we use at AWS. t2.micro is the free version. Security
-# key is "GameKeyPair".
-resource "aws_instance" "game_server" {
-  ami                    = "ami-0ac019f4fcb7cb7e6"
-  instance_type          = "t2.micro"
-  key_name               = "GameKeyPair"
-  vpc_security_group_ids = [aws_security_group.game_security_group.id]
-  tags = {
-    Name = "GameServer"
-  }
-
   # docker_compose_up.sh script installs everything required, like Docker and Docker-
   # Compose. It sends it to the new AWS instance.
   provisioner "file" {
@@ -134,6 +121,7 @@ resource "aws_instance" "game_server" {
     }
   }
 }
+
 # Gets the public IP and saves it as a new instance. Displays it in terminal as well.
 output "public_ip" {
   value = aws_instance.game_server.public_ip
