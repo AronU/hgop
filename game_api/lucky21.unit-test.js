@@ -114,9 +114,6 @@ test('playerWon should be a win for guess21OrUnder if getCardValue == 21', () =>
   let game = context('lucky21')((name) => dependencies[name]);
   game.guess21OrUnder(game);
   let return_value = game.playerWon(game);
-  console.log(return_value);
-  console.log(game.getTotal(game));
-  console.log(game.getCardsValue(game));
   // Assert
   expect(return_value).toEqual(true);
 });
