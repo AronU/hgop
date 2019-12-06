@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 GIT_COMMIT=$1
 
 # We need to move some files around, because of the terraform state limitations.
@@ -26,6 +28,7 @@ echo "Game API running at " + $(terraform output public_ip)
 ssh -o StrictHostKeyChecking=no -i "~/.aws/GameKeyPair.pem" ubuntu@$(terraform output public_ip) "./initialize_game_api_instance.sh"
 ssh -o StrictHostKeyChecking=no -i "~/.aws/GameKeyPair.pem" ubuntu@$(terraform output public_ip) "./docker_compose_up.sh $GIT_COMMIT"
 
-curl ubuntu$(terraform output public_ip):3000/status || exit 1
+echo ""
+echo "$(terraform output public_ip):3000/status"
 
 exit 0
