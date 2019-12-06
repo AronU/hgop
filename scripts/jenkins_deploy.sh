@@ -1,5 +1,6 @@
 #!/bin/bash
 
+#TODO exit on error if deployment fails.
 set -e
 
 GIT_COMMIT=$1
@@ -13,6 +14,7 @@ rm -f /var/lib/jenkins/terraform/hgop/production/scripts/docker_compose_up.sh
 cp scripts/docker_compose_up.sh /var/lib/jenkins/terraform/hgop/production/scripts/docker_compose_up.sh
 rm -f /var/lib/jenkins/terraform/hgop/production/docker-compose.yml
 cp docker-compose.yml /var/lib/jenkins/terraform/hgop/production/docker-compose.yml
+
 # Delete all .tf files from /var/lib/jenkins/terraform/hgop/production
 rm -f /var/lib/jenkins/terraform/hgop/production/*.tf
 # Copy all .tf files from repository to /var/lib/jenkins/terraform/hgop/production
@@ -27,7 +29,7 @@ echo "Game API running at " + $(terraform output public_ip)
 
 ssh -o StrictHostKeyChecking=no -i "~/.aws/GameKeyPair.pem" ubuntu@$(terraform output public_ip) "./initialize_game_api_instance.sh"
 ssh -o StrictHostKeyChecking=no -i "~/.aws/GameKeyPair.pem" ubuntu@$(terraform output public_ip) "./docker_compose_up.sh $GIT_COMMIT"
-
+echo ""
 echo ""
 echo "$(terraform output public_ip):3000/status"
 

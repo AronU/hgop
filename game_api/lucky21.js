@@ -21,13 +21,14 @@ module.exports = (context) => {
     return {
         state: state,
         // Is the game over (true or false).
+        // Is the game finished.
         isGameOver: (game, guess) => {
             if (game.state.card != undefined) {
-                // Player has guessed over 21:
+                // Player has guessed over 21 so the card is no loger undefined and the game ends no mater what
                 return true;
             }
             else {
-                // Player has guessed 21 or under:
+                // Player has guessed 21 or under so we need to check the Total and if is under or 21 so the game ends
                 if (game.getTotal(game) >= 21) {
                     return true;
                 }
@@ -37,13 +38,13 @@ module.exports = (context) => {
         // Has the player won (true or false).
         playerWon: (game, guess) => {
             if (game.state.card != undefined) {
-                // Player has guessed over 21:
+                // Player has guessed over 21 so we need to check the Total and if is grater then 21 the player wins the game
                 if (game.getTotal(game) > 21) {
                     return true;
                 }
             }
             else {
-                // Player has guessed 21 or under:
+                // Player has guessed 21 or under so we need to check the Total and if is 21 the player wins the game
                 if (game.getTotal(game) == 21) {
                     return true;
                 }
@@ -94,33 +95,45 @@ module.exports = (context) => {
             }
             return card_value;
         },
+        // The cards value + the card value if it exits (integer).
         getTotal: (game) => {
             var Total = 0;
+            // check for each card in cards and add it to the Total
             for (let index = 0; index < game.state.cards.length; index++) {
                 var x = parseInt(game.state.cards[index].slice(0, -1));
+                // if the card is a roal one it is just 10
                 if (x > 10) {
                     x = 10;
                 }
                 Total += x;
             };
+            // it getCardValue is not undifined the add the value to the Total as well
+            if(game.getCardValue(game) != undefined) {
+                return Total + game.getCardValue(game);
+            }
             return Total;
         },
         // The player's cards (array of strings).
         getCards: (game) => {
+            // retruns the value of the cards
             return game.state.cards;
         },
         // The player's card (string or undefined).
         getCard: (game) => {
+            // retruns the value of the card
             return game.state.card;
         },
         // Player action (void).
         guess21OrUnder: (game) => {
+            // the card is drawn and add it to the Cards array
             game.state.cards.push(game.state.dealer.draw(game.state.deck));
         },
         // Player action (void).
         guessOver21: (game) => {
+            // the card is drawn and add it to the card
             game.state.card = game.state.dealer.draw(game.state.deck);
-            game.state.cards.push(game.state.card);
+            //  and add it to the Cards array
+            // game.state.cards.push(game.state.card);
         },
 
         getState: (game) => {
