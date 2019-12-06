@@ -1,3 +1,6 @@
+let context = require('./context.js').newContext();
+let randomConstructor = require('./random.js');
+
 function newRandom(randomReturnValues) {
     let i = 0;
     return {
@@ -12,15 +15,12 @@ test('dealer should should shuffle cards', () => {
     let dependencies = {
         'random': () => newRandom([2, 1]),
     };
-    let newDealer = require('./dealer.js');
-    let dealer = newDealer((name) => {
-        return dependencies[name];
-    });
-    let deck = ['a', 'b', 'c'];
+    let newRandom = randomConstructor(context);
+    newRandom.randomInt(1, 10);
 
     // Act
-    dealer.shuffle(deck);
+    let randomInt = newRandom.randomInt(1, 10);
 
     // Assert
-    expect(deck).toEqual(['c', 'b', 'a']);
+    expect(randomInt).toEqual('number');
 });

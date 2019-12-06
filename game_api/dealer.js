@@ -1,6 +1,4 @@
 module.exports = (context) => {
-    let deckConstructor = context('deck');
-    let deck = deckConstructor(context);
     let randomConstructor = context('random');
     let randomFunc = randomConstructor(context);
     return {

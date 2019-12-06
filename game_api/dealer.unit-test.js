@@ -1,7 +1,3 @@
-let context = require('./context.js').newContext();
-let deckConstructor = require('./deck.js');
-let dealerConstructor = require('./dealer.js');
-
 function newRandom(randomReturnValues) {
     let i = 0;
     return {
@@ -80,5 +76,5 @@ test('Dealer should return empty if deck is empty', () => {
     let drawnCard = dealer.draw(deck);
 
     // Assert
-    expect(drawnCard).toEqual(null);
+    expect(drawnCard).toEqual(undefined);
 });

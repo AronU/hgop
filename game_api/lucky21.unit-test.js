@@ -464,13 +464,13 @@ test('getCards should equal 21 with a 01D', () => {
 //GETCARD TESTS.
 test('getCard should equal undefined when no card is drawn.', () => {
   // Arrange
-  let deck = deckConstructor();
-  deck = [
+  let deck = [
       '04C', '02D', '09S', '04H', 
   ];
-  let dealer = dealerConstructor();
+  let dealer = {};
   // Override the shuffle to do nothing.
   dealer.shuffle = (deck) => {};
+  
   
   // Inject our dependencies
   let game = lucky21Constructor(deck, dealer);

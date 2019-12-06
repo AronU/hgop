@@ -1,12 +1,3 @@
-function newRandom(randomReturnValues) {
-    let i = 0;
-    return {
-        randomInt: (min, max) => {
-            return randomReturnValues[i++];
-        }
-    };
-}
-
 test('dealer should should shuffle cards', () => {
     // Arrange
     let dependencies = {
@@ -28,8 +19,3 @@ test('dealer should should shuffle cards', () => {
     // Assert
     expect(deck).toEqual(expectedDeck);
 });
-
-
-
-let deckConstructor = context('deck');
-let deck = deckConstructor(context);
