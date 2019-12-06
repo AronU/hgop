@@ -1,4 +1,10 @@
-module.exports = (deck, dealer) => {
+module.exports = (context) => {
+    let deckConstructor = context('deck');
+    let deck = deckConstructor(context);
+    
+    let dealerConstructor = context('dealer');
+    let dealer = dealerConstructor(context);
+    
     dealer.shuffle(deck);
     let card0 = dealer.draw(deck);
     let card1 = dealer.draw(deck);
@@ -115,6 +121,18 @@ module.exports = (deck, dealer) => {
         guessOver21: (game) => {
             game.state.card = game.state.dealer.draw(game.state.deck);
             game.state.cards.push(game.state.card);
+        },
+
+        getState: (game) => {
+            return {
+                cards: game.state.cards,
+                cardsValue: game.getCardsValue(game),
+                card: game.state.card,
+                cardValue: game.getCardValue(game),
+                total: game.getTotal(game),
+                gameOver: game.isGameOver(game),
+                playerWon: game.playerWon(game),
+            };
         },
     };
 };
