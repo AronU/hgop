@@ -1,28 +1,38 @@
-let context = require('./context.js').newContext();
-let randomConstructor = require('./random.js');
-let Random = randomConstructor(context);
-
-test('Random int should equal 1', () => {
+// Random value min test
+test('random should return an int that is more than or equal to the min value parameter for randomInt()', () => {
+    // Arrange
+    const random = require('./random')();
+  
     // Act
-    let randomInt = Random.randomInt(1, 1);
-
+    const number = random.randomInt(5, 10);
+  
     // Assert
-    expect(randomInt).toEqual(1);
-});
-
-test('Random int should always return a number', () => {
+    expect(number).toBeGreaterThanOrEqual(5);
+  });
+  
+  // Random value max test
+  test('random should return an int that is less than or equal to the max value parameter for randomInt()', () => {
+    // Arrange
+    const random = require('./random')();
+  
     // Act
-    let randomInt = Random.randomInt(10, 20);
-
+    const number = random.randomInt(0, 5);
+  
     // Assert
-    expect(typeof randomInt).toEqual('number');
-});
-
-test('Random int should be on the given number range, 10-20', () => {
+    expect(number).toBeLessThanOrEqual(5);
+  });
+  
+  // Random override test
+  test('random should return a value of 1 after overriding the randomInt() fucntion', () => {
+    // Arrange
+    const random = require('./random')();
+    random.randomInt = (min, max) => {
+      return 1;
+    };
+  
     // Act
-    let randomInt = Random.randomInt(10, 20);
-
+    const number = random.randomInt(1, 2);
+  
     // Assert
-    expect(randomInt).toBeLessThanOrEqual(20);
-    expect(randomInt).toBeGreaterThanOrEqual(10);
-});
+    expect(number).toEqual(1);
+  });
