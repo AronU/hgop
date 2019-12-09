@@ -57,23 +57,21 @@ module.exports = function(context) {
         },
         // Should call onSuccess with integer.
         getTotalNumberOfGames: (onSuccess, onError) => {
-            let client = getClient();
-            client.connect((err) => {
-                if (err) {
-                    onError(err);
+            var client = getClient();
+            client.connect(() => {
+                let count = 0;
+                const query = {
+                    text: 'SELECT * FROM GameResult;',
+                    rowMode: 'array'
+                }
+                client.query(query, (err, res) => {
+                    onGet(res.rows.map(row => {
+                        count++;
+                    }));
+                    onSuccess(count);
                     client.end();
-                } else {
-                    let count = 0;
-                    const query = {
-                        text: 'SELECT * FROM GameResult;',
-                        rowMode: 'array'
-                    }
-                    client.query(query, (err, res) => {
-                        onGet(res.rows.map(row => {
-                            count++;
-                        }));
-                        onSuccess(count);
-                        client.end();
+                });
+            });
             return;
         },
         // Should call onSuccess with integer.
