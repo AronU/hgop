@@ -63,19 +63,17 @@ module.exports = function(context) {
                     onError(err);
                     client.end();
                 } else {
+                    let count = 0;
                     const query = {
-                        text: 'SELECT COUNT(*) FROM GameResult;',
+                        text: 'SELECT * FROM GameResult;',
+                        rowMode: 'array'
                     }
-                    client.query(query, (err) => {
-                        if (err) {
-                            onError(err);
-                        } else {
-                            onSuccess(query);
-                        }
+                    client.query(query, (err, res) => {
+                        onGet(res.rows.map(row => {
+                            count++;
+                        }));
+                        onSuccess(count);
                         client.end();
-                    });
-                }
-            });
             return;
         },
         // Should call onSuccess with integer.
