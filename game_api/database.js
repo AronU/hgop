@@ -66,11 +66,13 @@ module.exports = function(context) {
                     const query = {
                         text: 'SELECT COUNT(*) FROM GameResult;',
                     }
-                    client.query(query, (err) => {
+                    client.query(query, (err, result) => {
+                        console.log(err);
+                        console.log(result);
                         if (err) {
                             onError(err);
                         } else {
-                            onSuccess(query);
+                            onSuccess(result);
                         }
                         client.end();
                     });

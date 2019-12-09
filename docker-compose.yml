@@ -3,17 +3,18 @@ services:
   my_item_repository:
     image: andrilor/jenkins:${GIT_COMMIT}
     ports:
-    - '3000:3000'
+      - '3000:3000'
     depends_on:
-    - my_postgres_container
+    - my_database_container
     environment:
-      POSTGRES_DB: 'my_postgres_database'
-      POSTGRES_USER: 'my_postgres_user'
-      POSTGRES_PASSWORD: 'my_postgres_password'
-      PORT: '3000'
-  my_postgres_container:
+      PORT: 3000
+      POSTGRES_HOST: 'my_database_container'
+      POSTGRES_DB: 'game_database'
+      POSTGRES_USER: 'my_user'
+      POSTGRES_PASSWORD: 'my_password'
+  my_database_container:
     image: postgres
     environment:
-      POSTGRES_DB: 'my_postgres_database'
-      POSTGRES_USER: 'my_postgres_user'
-      POSTGRES_PASSWORD: 'my_postgres_password'
+      POSTGRES_DB: 'game_database'
+      POSTGRES_USER: 'my_user'
+      POSTGRES_PASSWORD: 'my_password'
