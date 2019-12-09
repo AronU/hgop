@@ -1,3 +1,14 @@
+# Top of file
+variable "environment" {
+  type = string
+}
+
+# Usages
+name   = "GameSecurityGroup_${var.environment}"
+
+Name = "GameServer_${var.environment}"
+
+
 # Retrieves the credentials from specified location. Our provdier is AWS. 
 provider "aws" {
   shared_credentials_file = "~/.aws/credentials"
