@@ -4,7 +4,7 @@ variable "environment" {
 }
 
 # Usages
-name   = "GameSecurityGroup_${var.environment}"
+name = "GameSecurityGroup_${var.environment}"
 
 Name = "GameServer_${var.environment}"
 
