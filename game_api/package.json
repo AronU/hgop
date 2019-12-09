@@ -5,6 +5,8 @@
   "main": "app.js",
   "scripts": {
     "test:unit": "jest --testRegex .unit-test.js --collectCoverage true",
+    "test:api": "jest --testRegex .api-test.js --collectCoverage true",
+    "test:capacity": "jest --testRegex .capacity-test.js --collectCoverage true",
     "test": "echo \"Error: no test specified\" && exit 1",
     "eslint": "node ./node_modules/eslint/bin/eslint.js"
   },
