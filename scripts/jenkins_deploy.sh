@@ -22,8 +22,8 @@ cp *.tf /var/lib/jenkins/terraform/hgop/production
 
 cd /var/lib/jenkins/terraform/hgop/production
 terraform init # In case terraform is not initialized.
-terraform destroy -auto-approve
-terraform apply -auto-approve
+terraform destroy -auto-approve -var environment=production || exit 1
+terraform apply -auto-approve -var environment=production || exit 1
 
 echo "Game API running at " + $(terraform output public_ip)
 
