@@ -66,9 +66,14 @@ module.exports = function(context) {
                 }
                 client.query(query, (err, res) => {
                     onGet(res.rows.map(row => {
-                        count++;
+                        return {
+                            ID: row[0],
+                            Won: row[1],
+                            Score: row[2],
+                            Total: row[3],
+                            InsertDate: row[4]
+                        }
                     }));
-                    onSuccess(count);
                     client.end();
                 });
             });
