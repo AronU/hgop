@@ -1,54 +1,63 @@
-log=log_file.txt #File to log all output in.
-echo "Welcome $USER. Operating system: $OSTYPE. Time of start: $(date +"%A, %d-%m-%y %H:%M:%S")" | tee -a "$log"
-echo "This script installs and prints the versions for the following tools:" | tee -a "$log"
-echo "" | tee -a "$log"
+#!/bin/bash
 
-if [ $OSTYPE == "Darwin" ]; #We check if the Operating System is Mac.
-then
-#List of applications we need to install.
-echo "*brew" | tee -a "$log"
-echo "*git" | tee -a "$log"
-echo "*NodeJS" | tee -a "$log"
-echo "*AWS" | tee -a "$log"
-# the following IF statmants check if the program is if it is not then it installs it
-# Installations, brew first, then we use brew to install rest. 
-if test ! $(which brew);
-then
-/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" | tee -a "$log"
-fi
-if test ! $(which git);
-then
-brew install git | tee -a "$log"
-fi
-if test ! $(which node);
-then
-brew install node | tee -a "$log"
-fi
-if test ! $(which aws);
-then
-brew install awscli -y | tee -a "$log"
-fi
-#Version checks.
-git --version | tee -a "$log"
-nodejs -v | tee -a "$log"
-node -v | tee -a "$log"
-aws --version | tee -a "$log"
+echo "Welcome $USER."
+echo "This script is going to setup your Linux development environment."
+echo "You are running on $(lsb_release -a)"
 
-else 
-#For other OS like Linux for example. Similar process as above. 
-echo "*git" | tee -a "$log"
-echo "*NodeJS" | tee -a "$log"
-echo "*AWS" | tee -a "$log"
-#Installations
-sudo apt update | tee -a "$log"
-sudo apt-get install git -y | tee -a "$log"
-sudo apt-get install nodejs -y | tee -a "$log"
-sudo apt install awscli -y | tee -a "$log"
-#Version checks.
-git --version | tee -a "$log"
-nodejs -v | tee -a "$log"
-node -v | tee -a "$log"
-aws --version | tee -a "$log"
-fi
-echo "" | tee -a "$log"
-echo "Time of end: $(date +"%A, %d-%m-%y %H:%M:%S")" | tee -a "$log" #Print when script finishes
+function main {
+    echo "Started on: $(date)"
+
+    sudo apt-get update
+
+    echo "Installing git"
+    sudo apt install git
+
+    echo "Installing NodeJS"
+    curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+    sudo apt-get install nodejs
+
+    echo "Installing Docker"
+    sudo apt-get install \
+        apt-transport-https \
+        ca-certificates \
+        curl \
+        gnupg-agent \
+        software-properties-common
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+    sudo add-apt-repository \
+        "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+        $(lsb_release -cs) \
+        stable"
+    sudo apt-get update
+    sudo apt-get install docker-ce docker-ce-cli containerd.io
+    sudo usermod -aG docker $USER
+
+    echo "Installing Docker Compose"
+    sudo curl -L "https://github.com/docker/compose/releases/download/1.24.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+    sudo chmod +x /usr/local/bin/docker-compose
+
+    echo "Installing Python3"
+    sudo apt-get install python3
+    sudo apt install python3-pip
+
+    echo "Installing AWS CLI"
+    pip3 install --upgrade --user awscli
+    export PATH=/home/$USER/.local/bin:$PATH
+
+    echo "Installing Terraform"
+    wget https://releases.hashicorp.com/terraform/0.12.16/terraform_0.12.16_linux_amd64.zip -O terraform.zip
+    sudo unzip terraform.zip -d /usr/local/bin
+
+    echo "Versions:"
+    git --version
+    echo "npm version $(npm --version)"
+    echo "NodeJS version $(node --version)"
+    docker --version
+    docker-compose --version
+    aws --version
+    terraform --version
+
+    echo "Ended on: $(date)"
+}
+
+(main || echo "script failed") | tee log.txt

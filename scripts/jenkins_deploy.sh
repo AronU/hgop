@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #TODO exit on error if deployment fails.
-set -e
+set -euxo pipefail
 
 GIT_COMMIT=$1
 

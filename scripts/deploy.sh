@@ -1,6 +1,6 @@
 #!/bin/bash
 # destroy any AWS instans if any exist
-terraform destroy -force
+terraform destroy -auto-approve
 # Creates new AWS instans
 terraform apply -auto-approve
 # gives the GameKeyPair promison so anyone can read from it

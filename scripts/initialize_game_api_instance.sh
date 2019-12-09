@@ -1,11 +1,10 @@
 #!/bin/bash
 
+set -euxo pipefail
+
 echo 'This script installs everything needed to run our API on the instance'
 echo 'and then starts the API.'
-echo 'express'
-sudo apt install express
-echo 'pg'
-sudo apt install pg
+
 echo 'Installing Docker'
 sudo DEBIAN_FRONTEND=noninteractive apt-get -y update
 sudo DEBIAN_FRONTEND=noninteractive apt-get -y install \

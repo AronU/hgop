@@ -1,5 +1,6 @@
 #!/bin/bash
-
-GIT_COMMIT=$1 || { echo 'Commit failed' ; exit 1; }
+set -euxo pipefail
+GIT_COMMIT=$1 
 #Docker push. Will exit if it fails. 
-docker push andrilor/jenkins:$GIT_COMMIT || { echo 'docker push failed' ; exit 1; }
+docker push andrilor/jenkins:$GIT_COMMIT
+exit 0
