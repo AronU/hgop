@@ -64,7 +64,7 @@ module.exports = function(context) {
                     client.end();
                 } else {
                     const query = {
-                        text: 'SELECT COUNT(*) FROM GameResult;',
+                        text: 'SELECT COUNT(*) FROM GameResult;'
                     }
                     client.query(query, (err, result) => {
                         console.log(err);
