@@ -35,10 +35,8 @@ node {
     stage("API Test") {
         sh "./scripts/jenkins_deploy.sh ${git.GIT_COMMIT} apitest"
         dir("game_api") {
-            sh("chmod +x ../scripts/test_api.sh")
             sh("./../scripts/test_api.sh")
         }
-
         dir("/var/lib/jenkins/terraform/hgop/apitest") {
             sh "terraform destroy -auto-approve  -var environment=apitest || exit 1"
         }
