@@ -3,11 +3,6 @@ variable "environment" {
   type = string
 }
 
-# Usages
-name = "GameSecurityGroup_${var.environment}"
-
-Name = "GameServer_${var.environment}"
-
 
 # Retrieves the credentials from specified location. Our provdier is AWS. 
 provider "aws" {
@@ -17,7 +12,7 @@ provider "aws" {
 
 # Sets up ports. Sets up security groups and protocols. 
 resource "aws_security_group" "game_security_group" {
-  name = "GameSecurityGroup"
+  name = "GameSecurityGroup_${var.environment}"
 
   ingress {
     from_port   = 22
@@ -49,7 +44,7 @@ resource "aws_instance" "game_server" {
   key_name               = "GameKeyPair"
   vpc_security_group_ids = [aws_security_group.game_security_group.id]
   tags = {
-    Name = "GameServer"
+    Name = "GameServer_${var.environment}"
   }
 
   # initialize_game_api_instance.sh script installs everything required, like Docker and Docker-
