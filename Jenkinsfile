@@ -35,7 +35,8 @@ node {
     stage("API Test") {
         sh "./scripts/jenkins_deploy.sh ${git.GIT_COMMIT} apitest"
         dir("game_api") {
-            sh "API_URL=${PUBLIC_ADDR}:3000 npm run test:api"
+            sh("chmod +x ../scripts/api_test.sh")
+            sh("./../scripts/api_test.sh")
         }
 
         dir("/var/lib/jenkins/terraform/hgop/apitest") {

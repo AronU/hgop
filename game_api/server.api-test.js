@@ -1,6 +1,6 @@
 const helper = require('./server.lib-test.js');
 
-const timeout = 1800;
+const timeout = 30000;
 
 // TODO what does the done parameter do?
 test('play a game', function(done) {
