@@ -33,7 +33,7 @@ node {
         sh "./scripts/docker_push.sh ${git.GIT_COMMIT}"
     }
     stage("API Test") {
-        sh "./scripts/jenkins_deploy.sh ${git.GIT_COMMIT} apitest)"
+        sh "./scripts/jenkins_deploy.sh ${git.GIT_COMMIT} apitest"
         dir("game_api") {
             sh "API_URL=${PUBLIC_ADDR}:3000 npm run test:api"
         }
