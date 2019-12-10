@@ -42,8 +42,13 @@ node {
         }
     }
     stage("Capacity Test") {
-        echo "hello not working"
-        //sh "npm run test:capacity --prefix game_api"
+        sh "./scripts/jenkins_deploy.sh ${git.GIT_COMMIT} capacitytest"
+        dir("game_api") {
+            sh("./../scripts/test_capacity.sh")
+        }
+        dir("/var/lib/jenkins/terraform/hgop/capacitytest") {
+            sh "terraform destroy -auto-approve  -var environment=capacitytest || exit 1"
+        }
     }
     stage("Deploy"){
         sh "./scripts/jenkins_deploy.sh ${git.GIT_COMMIT} production"
