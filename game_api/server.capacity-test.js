@@ -1,7 +1,7 @@
 const helper = require('./server.lib-test.js');
 
 const timeout = 30000;
-const gameCount = 10;
+const gameCount = 100;
 
 const playGames = (url, count, done) => {
   if (count === 0) {
