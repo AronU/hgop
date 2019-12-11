@@ -12,7 +12,7 @@ export const startGame = () => {
 
 export const getState = () => {
   // TODO: Get the state of the game
-  return axios.get(`${apiUrl}/state`);
+  return axios.get(`${apiUrl}/stats`);
 };
 
 export const guessOver21 = () => {
