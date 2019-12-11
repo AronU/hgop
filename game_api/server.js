@@ -59,6 +59,16 @@ module.exports = function(context) {
             const msg = 'Game started';
             res.statusCode = 201;
             res.send(msg);
+            if (game.isGameOver(game)) {
+                const won = game.playerWon(game);
+                const score = game.getCardsValue(game);
+                const total = game.getTotal(game);
+                database.insertResult(won, score, total, () => {
+                    console.log('Game result inserted to database');
+                }, (err) => {
+                    console.log('Failed to insert game result, Error:' + JSON.stringify(err));
+                });
+            }
         }
     });
 

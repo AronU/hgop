@@ -18,3 +18,14 @@ services:
       POSTGRES_DB: 'game_database'
       POSTGRES_USER: 'my_user'
       POSTGRES_PASSWORD: 'my_password'
+# Based on https://github.com/DataDog/docker-compose-example
+  my_datadog_container:
+    image: datadog/agent:latest
+    environment:
+      DD_API_KEY: 'f2f0388499d15cec3219b71fa6a82777'
+      DD_SITE: 'datadoghq.eu'
+      DD_DOGSTATSD_NON_LOCAL_TRAFFIC: 'true'
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /proc/mounts:/host/proc/mounts:ro
+      - /sys/fs/cgroup:/host/sys/fs/cgroup:ro
