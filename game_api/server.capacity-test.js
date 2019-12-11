@@ -18,6 +18,6 @@ const playGames = (url, count, done) => {
   helper.playGame(url, playGameCallback);
 };
 
-test('play ' + gameCount + ' games within ' + (timeout / 1000) + ' seconds', function(done) {
+test('play ' + gameCount + ' games within ' + ((timeout / 1000)/60) + ' minutes', function(done) {
   playGames(process.env.API_URL, gameCount, done);
 }, timeout);
