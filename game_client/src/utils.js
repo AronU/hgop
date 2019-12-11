@@ -1,11 +1,11 @@
 import axios from "axios";
 // TODO: Add correct api Url
 // https://stackoverflow.com/questions/7703689/difference-between-window-location-href-window-location-replace-and-window-loca
-const apiUrl = window.location.href.replace('4000', '3000');
+const apiUrl = window.location.href.replace('4000/', '3000');
 
 export const startGame = () => {
   // TODO: Call start game
-  return axios.post(`${apiUrl}start`).then(res => {
+  return axios.post(`${apiUrl}/start`).then(res => {
     return getState();
   });
 };
