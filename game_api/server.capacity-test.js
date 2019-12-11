@@ -9,7 +9,7 @@ const playGames = (url, count, done) => {
     return;
   }
 
-  // Creating a callback that works the same way as done in Jest.
+  // Creating a callback that works the same way as done in Jest. 
   const playGameCallback = () => {
     playGames(url, count - 1, done);
   };
