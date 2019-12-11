@@ -1,27 +1,28 @@
 import axios from "axios";
 // TODO: Add correct api Url
-const apiUrl = "";
+// https://stackoverflow.com/questions/7703689/difference-between-window-location-href-window-location-replace-and-window-loca
+const apiUrl = window.location.href.replace('4000/', '3000');
 
 export const startGame = () => {
   // TODO: Call start game
-  return axios.post(`${apiUrl}`).then(res => {
+  return axios.post(`${apiUrl}start`).then(res => {
     return getState();
   });
 };
 
 export const getState = () => {
   // TODO: Get the state of the game
-  return axios.get(`${apiUrl}`);
+  return axios.get(`${apiUrl}state`);
 };
 
 export const guessOver21 = () => {
   // TODO: Guess over 21
-  return axios.post(`${apiUrl}`);
+  return axios.post(`${apiUrl}guessOver21`);
 };
 
 export const guess21OrUnder = () => {
   // TODO: Guess 21 or under
-  return axios.post(`${apiUrl}`);
+  return axios.post(`${apiUrl}guess21OrUnder`);
 };
 
 // Helper function to convert cards format
