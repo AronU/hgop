@@ -8,5 +8,9 @@ COPY package.json package.json
 RUN npm install --production
 # This skips the test files because we have a .dockerignore file defined
 COPY *.js ./
+
+CMD sleep 10
+# Give postgres time to setup before we try to migrate.
+CMD npm run migratedb:pg
 # CMD will be overridden when running the container with alternative arguments(app.js).
 CMD node app.js

@@ -8,7 +8,8 @@
     "test:api": "jest --testRegex .api-test.js --collectCoverage true",
     "test:capacity": "jest --testRegex .capacity-test.js --collectCoverage true",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "eslint": "node ./node_modules/eslint/bin/eslint.js"
+    "eslint": "node ./node_modules/eslint/bin/eslint.js",
+    "migratedb:pg": "db-migrate --verbose --env pg --config ./database.json --migrations-dir ./migrations up"
   },
   "author": "Andri & Aron",
   "license": "ISC",

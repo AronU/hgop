@@ -11,7 +11,7 @@ module.exports = function(context) {
             database: config.pgDatabase,
         });
     }
-
+/*
     setTimeout(() => {
       let client = getClient();
       client.connect((err) => {
@@ -30,7 +30,7 @@ module.exports = function(context) {
           }
       });
     }, 5000);
-
+*/
     return {
         insertResult: (won, score, total, onSuccess, onError) => {
             let client = getClient();
@@ -40,7 +40,7 @@ module.exports = function(context) {
                     client.end();
                 } else {
                     const query = {
-                        text: 'INSERT INTO GameResult(Won, Score, Total, InsertDate) VALUES($1, $2, $3, CURRENT_TIMESTAMP);',
+                        text: 'INSERT INTO "GameResult" ("Won", "Score", "Total", "InsertDate") VALUES($1, $2, $3, CURRENT_TIMESTAMP);',
                         values: [won, score, total],
                     }
                     client.query(query, (err) => {
