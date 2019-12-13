@@ -1,10 +1,10 @@
 # hgop
 Hagnýt gagnastjórnun og prófanir
-http://52.207.136.56:3000/status
+http://34.228.228.170:3000/status
 
 Jenkins
 http://54.152.217.158:8080
 
-Við lentum í miklum vandræðum að adapta Lucky21 unit testin á seinasta deginum. Við gerðum 20 tests á miðvikudeginum eins og við áttum að gera, þau öll virkuðu og fengu pass. Vonandi dregur það okkur ekki alveg niður að ná ekki að adapta fyrir nýju dependencies. 
+Við lentum í vandræðum með hotshots og náðum ekki að klára það. Við erum með datadog uppi með CPU monitor samt. https://puu.sh/EP0pq.png <- mynd af CPU monitor. Við sentum líka invite á Hrafn á Datadog.
 
-Pipelineið deployar líka en við erum að lenda í vandræðum að fá eitthvað til þess að birtast á IP addressunni. Þetta hefur virkað fyrir okkur en eitthvað klikkaði nýlega. Hægt að sjá í Jenkins að við höfum náð þessu áður. 
+Við lentum líka í vandræðum að birta myndir í UI-inu og erum því ekki vissir hvort leikurinn sé að keyra rétt á 4000 portinu.
