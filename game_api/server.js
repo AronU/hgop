@@ -18,7 +18,7 @@ module.exports = function(context) {
         res.send('The API is running!\n');
     });
 
-    let game = undefined;
+    let game = undefined; 
 
     var StatsD = require('hot-shots'),
     client = new StatsD({
