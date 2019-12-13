@@ -15,6 +15,11 @@ module.exports = function(context) {
 
     let game = undefined;
 
+    var StatsD = require('hot-shots'),
+    client = new StatsD({
+        host: my_datadog_container,
+    });
+
     // Gets game statistics
     app.get('/stats', (req, res) => {
         database.getTotalNumberOfGames((totalNumberOfGames) => {
@@ -51,6 +56,7 @@ module.exports = function(context) {
 
     // Starts a new game.
     app.post('/start', (req, res) => {
+        client.increment('games.started');
         if (game && game.isGameOver(game) == false) {
             res.statusCode = 409;
             res.send('There is already a game in progress');
