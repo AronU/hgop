@@ -8,7 +8,7 @@ const dealer = require('./dealer.js');
 const server = require('./server.js');
 const inject = require('./inject.js');
 const random = require('./random.js');
-const hotshots = require('hot-shots');
+//const hotshots = require('hot-shots');
 
 module.exports = {
   newContext: () => {
@@ -22,7 +22,7 @@ module.exports = {
       'dealer': dealer,
       'server': server,
       'random': random,
-      'hot-shots': hotshots,
+      //'hot-shots': hotshots,
     });
   },
 };
