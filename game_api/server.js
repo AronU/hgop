@@ -7,6 +7,11 @@ module.exports = function(context) {
     const lucky21Constructor = context("lucky21");
 
     let app = express();
+    
+    app.use((req, res, next) => {
+        res.header("Access-Control-Allow-Origin", "*");
+        next();
+      });
 
     app.get('/status', (req, res) => {
         res.statusCode = 200;
@@ -63,17 +68,21 @@ module.exports = function(context) {
         } else {
             game = lucky21Constructor(context);
             const msg = 'Game started';
-            res.statusCode = 201;
-            res.send(msg);
             if (game.isGameOver(game)) {
                 const won = game.playerWon(game);
                 const score = game.getCardsValue(game);
                 const total = game.getTotal(game);
+
                 database.insertResult(won, score, total, () => {
                     console.log('Game result inserted to database');
                 }, (err) => {
                     console.log('Failed to insert game result, Error:' + JSON.stringify(err));
                 });
+                res.statusCode = 201;
+                res.send(game.getState(game));
+            } else{
+                res.statusCode = 201;
+                res.send(msg);
             }
         }
     });

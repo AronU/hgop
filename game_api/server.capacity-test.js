@@ -1,6 +1,6 @@
 const helper = require('./server.lib-test.js');
 
-const timeout = 30000;
+const timeout = 300000;
 const gameCount = 10000;
 
 const playGames = (url, count, done) => {
@@ -9,7 +9,7 @@ const playGames = (url, count, done) => {
     return;
   }
 
-  // Creating a callback that works the same way as done in Jest.
+  // Creating a callback that works the same way as done in Jest. 
   const playGameCallback = () => {
     playGames(url, count - 1, done);
   };
@@ -18,6 +18,6 @@ const playGames = (url, count, done) => {
   helper.playGame(url, playGameCallback);
 };
 
-test('play ' + gameCount + ' games within ' + (timeout / 1000) + ' seconds', function(done) {
+test('play ' + gameCount + ' games within ' + ((timeout / 1000)/60) + ' minutes', function(done) {
   playGames(process.env.API_URL, gameCount, done);
 }, timeout);

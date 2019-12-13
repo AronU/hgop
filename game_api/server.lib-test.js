@@ -6,7 +6,7 @@ const playGame = (url, done) => {
       done.fail(error);
       return;
     }
-    console.log('start: ' + response['statusCode'] + ' - ' + body);
+    //console.log('start: ' + response['statusCode'] + ' - ' + body);
     guessUntilGameIsOver(url, 12, done);
   });
 };
@@ -23,7 +23,7 @@ const guessUntilGameIsOver = (url, maxGuesses, done) => {
       done.fail(error);
       return;
     }
-    console.log('state: ' + response['statusCode'] + ' - ' + body);
+    //console.log('state: ' + response['statusCode'] + ' - ' + body);
     if (JSON.parse(body).gameOver) {
       done();
       return;
@@ -35,7 +35,7 @@ const guessUntilGameIsOver = (url, maxGuesses, done) => {
         done.fail(error);
         return;
       }
-      console.log('guess: ' + response['statusCode'] + ' - ' + body);
+      //console.log('guess: ' + response['statusCode'] + ' - ' + body);
       guessUntilGameIsOver(url, maxGuesses - 1, done);
     });
   });
