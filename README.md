@@ -1,6 +1,6 @@
 # hgop
 Hagnýt gagnastjórnun og prófanir
-http://34.228.228.170:3000/status
+54.225.47.107:3000/status 
 
 Jenkins
 http://54.152.217.158:8080
